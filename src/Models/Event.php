@@ -44,6 +44,21 @@ class Event extends Model
             $query->where('end', '<=', $data['end']);
         }
 
+        if ( ! empty($data['doctor_id']))
+        {
+            $query->where('doctor_id', '=', $data['doctor_id']);
+        }
+
+        if ( ! empty($data['patient_id']))
+        {
+            $query->where('patient_id', '=', $data['patient_id']);
+        }
+
+        if ( ! empty($data['live_session_id']))
+        {
+            $query->where('live_session_id', '=', $data['live_session_id']);
+        }
+
         return $query;
     }
 }

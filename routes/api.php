@@ -18,3 +18,7 @@ Route::get('/events', 'EventsController@index');
 Route::post('/events/store', 'EventsController@store');
 Route::put('/events/{event_id}/update', 'EventsController@update');
 Route::delete('/events/{event_id}/destroy', 'EventsController@destroy');
+
+Route::get('/doctors', 'EventsController@getDoctors');
+Route::get('/patients', 'EventsController@getPatients');
+Route::get('/live-sessions/{patient_id}', 'EventsController@getPatientSessions');

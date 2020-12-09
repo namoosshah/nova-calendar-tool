@@ -4,13 +4,14 @@ namespace Czemu\NovaCalendarTool\Http\Controllers;
 
 use Czemu\NovaCalendarTool\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventsController
 {
     public function index(Request $request)
     {
         $events = Event::filter($request->query())
-            ->get(['id', 'title', 'start', 'end'])
+            ->get(['id', 'title', 'start', 'end', 'doctor_id', 'patient_id', 'live_session_id'])
             ->toJson();
 
         return response($events);
@@ -72,5 +73,31 @@ class EventsController
         }
 
         return response()->json(['error' => true]);
+    }
+
+    public function getDoctors() {
+        $doctors = DB::table('doctors')->get();
+        return response()->json([
+            'status_code' => 200,
+            'data' => $doctors
+        ], 200);
+    }
+
+    public function getPatients() {
+        $patients = DB::table('patients')->get();
+        return response()->json([
+            'status_code' => 200,
+            'data' => $patients
+        ], 200);
+    }
+
+    public function getPatientSessions($patient_id) {
+        $live_sessions = DB::table("live_sessions")
+                ->where("patients_id", $patient_id)
+                ->get();
+        return response()->json([
+            'status_code' => 200,
+            'data' => $live_sessions
+        ], 200);
     }
 }
