@@ -19,7 +19,20 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->timestamp('start')->nullable();
             $table->timestamp('end')->nullable();
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->unsignedBigInteger('patient_id')->nullable();
+            $table->unsignedBigInteger('live_session_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('doctor_id')
+                            ->references('id')->on('doctors')
+                            ->onDelete('cascade');
+            $table->foreign('patient_id')
+                            ->references('id')->on('patients')
+                            ->onDelete('cascade');
+            $table->foreign('live_session_id')
+                            ->references('id')->on('live_sessions')
+                            ->onDelete('cascade');
         });
     }
 
