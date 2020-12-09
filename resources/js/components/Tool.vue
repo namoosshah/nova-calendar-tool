@@ -67,7 +67,7 @@ export default {
     handleEventClick(event) {
       this.showModal = true;
       this.currentEvent = event;
-      if (event.patient_id) {
+      if (event.patient_id !== null) {
         this.getPatientSessions(event.patient_id);
       }
     },
