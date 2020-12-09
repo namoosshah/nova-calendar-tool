@@ -81,9 +81,9 @@ export default {
       title: this.currentEvent !== null ? this.currentEvent.event.title : '',
       start: moment(this.currentEvent !== null ? this.currentEvent.event.start : this.currentDate.date).format('YYYY-MM-DD HH:mm:ss'),
       end: this.currentEvent !== null ? moment(this.currentEvent.event.end).format('YYYY-MM-DD HH:mm:ss') : moment(this.currentDate.date).add(1, 'hour').format('YYYY-MM-DD HH:mm:ss'),
-      doctor_id: '',
-      patient_id: '',
-      live_session_id: ''
+      doctor_id: this.currentEvent !== null ? this.currentEvent.event.doctor_id : '',
+      patient_id: this.currentEvent !== null ? this.currentEvent.event.patient_id : '',
+      live_session_id: this.currentEvent !== null ? this.currentEvent.event.live_session_id : ''
     }
   },
   methods: {
