@@ -11,10 +11,24 @@ class EventsController
     public function index(Request $request)
     {
         $events = Event::filter($request->query())
-            ->get(['id', 'title', 'start', 'end', 'doctor_id', 'patient_id', 'live_session_id'])
-            ->toJson();
-
-        return response($events);
+            ->get(['id', 'title', 'start', 'end', 'doctor_id', 'patient_id', 'live_session_id']);
+        // format events
+        $formattedEvents = [];
+        foreach ($events as $event) {
+            $formattedEvents[] = [
+                'id' => $event->id,
+                'title' => $event->title,
+                'start' => $event->start,
+                'end' => $event->end,
+                'extendedProps' => [
+                    'doctor_id' => $event->doctor_id,
+                    'patient_id' => $event->patient_id,
+                    'live_session_id' => $event->live_session_id,
+                ]
+            ];
+        }
+        $formattedEvents = $formattedEvents->toJson();
+        return response($formattedEvents);
     }
 
     public function store(Request $request)
