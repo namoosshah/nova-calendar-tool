@@ -39,12 +39,10 @@ export default {
     return {
       calendarOptions: {
         events: '/nova-vendor/nova-calendar-tool/events',
-        eventContent: function (event, element) {
-          console.log(event);
-          console.log(element);
-        },
-        eventRender: function (event, element) {
-          element.find('div.fc-event-title').html(element.find('div.fc-event-title').text());
+        eventContent: function(arg) {
+          let divEl = document.createElement('div')
+          divEl.innerText  = arg.event.title;
+          return { domNodes: [ divEl ] };
         },
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
         headerToolbar: {
