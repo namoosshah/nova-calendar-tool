@@ -10,8 +10,10 @@ class EventsController
 {
     public function index(Request $request)
     {
-        $events = Event::filter($request->query())
-            ->get(['id', 'title', 'start', 'end', 'doctor_id', 'patient_id', 'live_session_id']);
+        $user = auth()->user();
+        $events = Event::where('doctor_id', $user->id)
+            ->orWhere('patient_id', $user->id)->filter($request->query())
+            ->get(['id', 'title', 'start', 'end', 'doctor_id', 'patient_id', 'live_session_id', 'completed_at']);
         // format events
         $formattedEvents = [];
         foreach ($events as $event) {
@@ -24,7 +26,9 @@ class EventsController
                     'doctor_id' => $event->doctor_id,
                     'patient_id' => $event->patient_id,
                     'live_session_id' => $event->live_session_id,
-                ]
+                ],
+                'backgroundColor' => $event->completed_at ? '#D1FAE5' : '#FFFBEB',
+                'textColor' => $event->completed_at ? '#10B981' : '#F59E0B',
             ];
         }
         $formattedEvents = collect($formattedEvents)->toJson();
@@ -90,7 +94,12 @@ class EventsController
     }
 
     public function getDoctors() {
-        $doctors = DB::table('doctors')->get();
+        $user = auth()->user();
+        $query = DB::table('doctors');
+        if ($this->getType($user) == "doctor") {
+            $query->where("id", $user->id);
+        }
+        $doctors = $query->get();
         return response()->json([
             'status_code' => 200,
             'data' => $doctors
@@ -98,7 +107,12 @@ class EventsController
     }
 
     public function getPatients() {
-        $patients = DB::table('patients')->get();
+        $user = auth()->user();
+        $query = DB::table('patients');
+        if ($this->getType($user) == "patient") {
+            $query->where("id", $user->id);
+        }
+        $patients = $query->get();
         return response()->json([
             'status_code' => 200,
             'data' => $patients
@@ -113,5 +127,9 @@ class EventsController
             'status_code' => 200,
             'data' => $live_sessions
         ], 200);
+    }
+
+    private function getType($user) {
+        return $user->patient ? "patient" : ($user->doctor ? "doctor" : "");
     }
 }
