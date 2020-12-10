@@ -38,9 +38,24 @@ export default {
     return {
       calendarOptions: {
         events: '/nova-vendor/nova-calendar-tool/events',
+        eventRender: function (event, element) {
+          element.find('span.fc-title').html(element.find('span.fc-title').text());
+        },
         plugins: [dayGridPlugin, interactionPlugin],
-        // initialView: 'dayGridMonth',
-        initialView: 'dayGridWeek',
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,dayGridWeek,timeGridDay'
+        },
+        initialView: 'dayGridMonth',
+        allDaySlot: false,
+        nowIndicator: true,
+        editable: false,
+        resizable: false,
+        nextDayThreshold: '00:00:00',
+        fixedWeekCount: false,
+        showNonCurrentDates: false,
+        displayEventTime: false,
         locale: Nova.config.fullcalendar_locale || 'en',
         dateClick: this.handleDateClick,
         eventClick: this.handleEventClick,

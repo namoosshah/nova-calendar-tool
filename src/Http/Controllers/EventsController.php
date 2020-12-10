@@ -11,7 +11,7 @@ class EventsController
     public function index(Request $request)
     {
         $user = auth()->user();
-        $events = Event::where('doctor_id', $user->id)
+        $events = Event::with(['patient', 'doctor'])->where('doctor_id', $user->id)
             ->orWhere('patient_id', $user->id)->filter($request->query())
             ->get(['id', 'title', 'start', 'end', 'doctor_id', 'patient_id', 'live_session_id', 'completed_at']);
         // format events
@@ -19,7 +19,7 @@ class EventsController
         foreach ($events as $event) {
             $formattedEvents[] = [
                 'id' => $event->id,
-                'title' => $event->title,
+                'title' => $this->createTitle($event),
                 'start' => $event->start,
                 'end' => $event->end,
                 'extendedProps' => [
@@ -33,6 +33,10 @@ class EventsController
         }
         $formattedEvents = collect($formattedEvents)->toJson();
         return response($formattedEvents);
+    }
+
+    public function createTitle($event) {
+        return "{$event->title}\nDoctor: {$event->doctor->first_name} {$event->doctor->last_name}\nPatient: {$event->patient->first_name} {$event->patient->last_name}\nTime: {$event->start} - {$event->end}";
     }
 
     public function store(Request $request)

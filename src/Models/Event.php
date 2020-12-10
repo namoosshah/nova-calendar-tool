@@ -64,4 +64,18 @@ class Event extends Model
 
         return $query;
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function patient() {
+        return $this->hasOne(Patient::class, 'id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function doctor() {
+        return $this->hasOne(Doctor::class, 'id', 'id');
+    }
 }
