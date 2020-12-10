@@ -42,7 +42,7 @@ export default {
           element.find('span.fc-title').html(element.find('span.fc-title').text());
         },
         plugins: [dayGridPlugin, interactionPlugin],
-        header: {
+        headerToolbar: {
           left: 'prev,next today',
           center: 'title',
           right: 'dayGridMonth,dayGridWeek,timeGridDay'
