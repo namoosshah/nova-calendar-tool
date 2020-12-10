@@ -25,7 +25,7 @@
           v-if="showConfirmationDialog"
           :currentEvent="currentEvent"
           @refreshEvents="refreshEvents"
-          @close="closeModal"></MarkCompleteModal>
+          @close="closeConfirmationModal"></MarkCompleteModal>
     </transition>
   </div>
 </template>
@@ -91,7 +91,9 @@ export default {
       this.currentDate = date;
     },
     handleEventClick(event) {
-      this.showModal = true;
+      if (!event || event.event.extendedProps.completed_at === null) {
+        this.showModal = true;
+      }
       this.currentEvent = event;
       if (event && event.event.extendedProps.patient_id !== null) {
         this.getPatientSessions(event.event.extendedProps.patient_id);
@@ -103,6 +105,11 @@ export default {
     },
     closeModal() {
       this.showModal = false;
+      this.currentEvent = null;
+      this.currentDate = null;
+    },
+    closeConfirmationModal() {
+      this.showConfirmationDialog = false;
       this.currentEvent = null;
       this.currentDate = null;
     },

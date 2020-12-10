@@ -103,7 +103,7 @@ export default {
       this.$emit('getPatientSessions', this.patient_id);
     },
     markCompleted() {
-      this.$emit('markCompleted');
+      this.$emit('markCompleted')
     },
     handleClose() {
       this.$emit('close');

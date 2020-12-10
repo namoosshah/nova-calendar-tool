@@ -42,7 +42,7 @@ class EventsController
         $doctor = $event->doctor->first_name.' '.$event->doctor->last_name;
         $patient = $event->patient->first_name.' '.$event->patient->last_name;
         $range = $start . ' - ' . $end;
-        $html = '<div class="text-sm cursor-pointer">'.
+        $html = '<div class="text-sm cursor-pointer p-2">'.
             '<div>'.$event->title.'</div>'.
             '<div>Doctor: '.$doctor .'</div>'.
             '<div>Patient: '.$patient .'</div>'.
