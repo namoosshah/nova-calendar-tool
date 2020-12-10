@@ -67,9 +67,8 @@ export default {
     handleEventClick(event) {
       this.showModal = true;
       this.currentEvent = event;
-      console.log(this.currentEvent);
-      if (event && event.event.patient_id !== null) {
-        this.getPatientSessions(event.event.patient_id);
+      if (event && event.event.extendedProps.patient_id !== null) {
+        this.getPatientSessions(event.event.extendedProps.patient_id);
       }
     },
     closeModal() {
