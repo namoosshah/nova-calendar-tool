@@ -2,6 +2,8 @@
 
 namespace Czemu\NovaCalendarTool\Models;
 
+use App\Models\Doctor;
+use App\Models\Patient;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 
