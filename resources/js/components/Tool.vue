@@ -39,7 +39,8 @@ export default {
       calendarOptions: {
         events: '/nova-vendor/nova-calendar-tool/events',
         plugins: [dayGridPlugin, interactionPlugin],
-        initialView: 'dayGridMonth',
+        // initialView: 'dayGridMonth',
+        initialView: 'dayGridWeek',
         locale: Nova.config.fullcalendar_locale || 'en',
         dateClick: this.handleDateClick,
         eventClick: this.handleEventClick,
