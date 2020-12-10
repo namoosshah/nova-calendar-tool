@@ -41,7 +41,7 @@ export default {
         events: '/nova-vendor/nova-calendar-tool/events',
         eventContent: function(arg) {
           let divEl = document.createElement('div')
-          divEl.innerText  = arg.event.title;
+          divEl.innerText  = arg.event.title.replace(/"/g,"");
           return { domNodes: [ divEl ] };
         },
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
