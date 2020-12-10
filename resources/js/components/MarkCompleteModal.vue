@@ -1,7 +1,7 @@
 <template>
   <modal tabindex="-1" role="dialog" @modal-close="handleClose">
-    <form @keydown="handleKeydown" @submit.prevent.stop="handleConfirm"
-          class="bg-white rounded-lg shadow-lg overflow-hidden w-action">
+    <form @submit.prevent="handleConfirm"
+        class="bg-white rounded-lg shadow-lg overflow-hidden w-action">
       <div>
         <heading :level="2" class="border-b border-40 py-8 px-8">Confirm action</heading>
         <p class="text-80 px-8 my-8"> Are you sure you want to mark this event completed? </p>
@@ -12,8 +12,9 @@
                   class="btn btn-link dim cursor-pointer text-80 ml-auto mr-6">
             Cancel
           </button>
-          <button :disabled="working" type="submit" class="btn btn-default btn-primary">
-            <span v-else>Confirm</span>
+          <button :disabled="working" type="submit" class="btn btn-default btn-primary"
+                  @click.prevent="handleConfirm">
+            Confirm
           </button>
         </div>
       </div>
