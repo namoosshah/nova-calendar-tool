@@ -45,7 +45,7 @@ export default {
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth,dayGridWeek,timeGridDay'
+          right: 'dayGridMonth,dayGridWeek,basicDay'
         },
         initialView: 'dayGridMonth',
         allDaySlot: false,

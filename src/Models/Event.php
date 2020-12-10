@@ -71,13 +71,13 @@ class Event extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function patient() {
-        return $this->hasOne(Patient::class, 'patient_id', 'id');
+        return $this->hasOne(Patient::class, 'id', 'patient_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function doctor() {
-        return $this->hasOne(Doctor::class, 'doctor_id', 'id');
+        return $this->hasOne(Doctor::class, 'id', 'doctor_id');
     }
 }
