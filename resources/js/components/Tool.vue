@@ -50,11 +50,11 @@ export default {
         events: '/nova-vendor/nova-calendar-tool/events',
         eventContent: function(arg) {
           let divEl = document.createElement('div')
-          divEl.innerHTML  = arg.event.extendedProps.eventContent;
-          const editEl = document.getElementById('editEvent' + arg.event.id);
-          editEl.addEventListener('click', () => {
-            this.handleEditEventClick(arg.event);
-          });
+          divEl.innerHTML  = arg.event.extendedProps.htmlContent;
+          // const editEl = document.getElementById('editEvent' + arg.event.id);
+          // editEl.addEventListener('click', () => {
+          //   this.handleEditEventClick(arg.event);
+          // });
           return { domNodes: [ divEl ] };
         },
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
