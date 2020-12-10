@@ -51,10 +51,6 @@ export default {
         eventContent: function(arg) {
           let divEl = document.createElement('div')
           divEl.innerHTML  = arg.event.extendedProps.htmlContent;
-          // const editEl = document.getElementById('editEvent' + arg.event.id);
-          // editEl.addEventListener('click', () => {
-          //   this.handleEditEventClick(arg.event);
-          // });
           return { domNodes: [ divEl ] };
         },
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -94,14 +90,10 @@ export default {
       this.currentDate = date;
     },
     handleEventClick(event) {
-      this.showConfirmationDialog = true;
-      this.currentEvent = event;
-    },
-    handleEditEventClick(event) {
       this.showModal = true;
       this.currentEvent = event;
-      if (event && event.extendedProps.patient_id !== null) {
-        this.getPatientSessions(event.extendedProps.patient_id);
+      if (event && event.event.extendedProps.patient_id !== null) {
+        this.getPatientSessions(event.event.extendedProps.patient_id);
       }
     },
     closeModal() {
