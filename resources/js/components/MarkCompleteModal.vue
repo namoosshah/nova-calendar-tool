@@ -13,7 +13,6 @@
             Cancel
           </button>
           <button :disabled="working" type="submit" class="btn btn-default btn-primary">
-            <loader v-if="working" width="30"></loader>
             <span v-else>Confirm</span>
           </button>
         </div>

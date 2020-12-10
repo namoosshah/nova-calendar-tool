@@ -158,9 +158,6 @@ export default {
             .catch(response => this.$toasted.show('Something went wrong', {type: 'error'}));
       }
     },
-  },
-  mounted() {
-    console.log(this.currentEvent);
   }
 }
 </script>
