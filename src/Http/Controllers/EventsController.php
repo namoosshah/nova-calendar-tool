@@ -27,7 +27,7 @@ class EventsController
                 ]
             ];
         }
-        $formattedEvents = $formattedEvents->toJson();
+        $formattedEvents = collect($formattedEvents)->toJson();
         return response($formattedEvents);
     }
 
