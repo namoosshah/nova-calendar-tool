@@ -26,9 +26,11 @@ class EventsController
                     'doctor_id' => $event->doctor_id,
                     'patient_id' => $event->patient_id,
                     'live_session_id' => $event->live_session_id,
+                    'completed_at' => $event->completed_at
                 ],
-                'backgroundColor' => $event->completed_at ? '#D1FAE5' : '#FFFBEB',
-                'textColor' => $event->completed_at ? '#10B981' : '#F59E0B',
+                'eventBackgroundColor' => $event->completed_at ? '#D1FAE5' : '#FFFBEB',
+                'eventBorderColor' => $event->completed_at ? '#10B981' : '#F59E0B',
+                'eventTextColor' => $event->completed_at ? '#10B981' : '#F59E0B',
             ];
         }
         $formattedEvents = collect($formattedEvents)->toJson();
