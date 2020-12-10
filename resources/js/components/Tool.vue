@@ -25,6 +25,7 @@
 <script>
 import FullCalendar from '@fullcalendar/vue';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import allLocales from '@fullcalendar/core/locales-all';
 import EventModal from './EventModal';
@@ -41,17 +42,15 @@ export default {
         eventRender: function (event, element) {
           element.find('div.fc-event-title').html(element.find('div.fc-event-title').text());
         },
-        plugins: [dayGridPlugin, interactionPlugin],
+        plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth,dayGridWeek,basicDay'
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
         initialView: 'dayGridMonth',
-        allDaySlot: false,
         nowIndicator: true,
         editable: false,
-        resizable: false,
         nextDayThreshold: '00:00:00',
         fixedWeekCount: false,
         displayEventTime: false,
@@ -63,8 +62,7 @@ export default {
           minute: '2-digit',
           second: '2-digit',
           hour12: false
-        },
-        timeFormat: 'H(:mm)'
+        }
       },
       currentEvent: null,
       currentDate: null,

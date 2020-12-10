@@ -36,7 +36,7 @@ class EventsController
     }
 
     public function createTitle($event) {
-        return "{$event->title}\nDoctor: {$event->doctor->first_name} {$event->doctor->last_name}\nPatient: {$event->patient->first_name} {$event->patient->last_name}\nTime: {$event->start} - {$event->end}";
+        return "{$event->title}<br/>Doctor: {$event->doctor->first_name} {$event->doctor->last_name}<br/>Patient: {$event->patient->first_name} {$event->patient->last_name}<br/>Time: {$event->start} - {$event->end}";
     }
 
     public function store(Request $request)
