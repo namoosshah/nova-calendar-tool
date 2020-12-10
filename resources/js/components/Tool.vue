@@ -19,6 +19,13 @@
           @getPatientSessions="getPatientSessions"
       />
     </transition>
+    <transition name="fade">
+      <MarkCompleteModal
+          v-if="showModal"
+          :currentEvent="currentEvent"
+          @refreshEvents="refreshEvents"
+          @close="closeModal"></MarkCompleteModal>
+    </transition>
   </div>
 </template>
 
@@ -29,9 +36,11 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import allLocales from '@fullcalendar/core/locales-all';
 import EventModal from './EventModal';
+import MarkCompleteModal from "./MarkCompleteModal";
 
 export default {
   components: {
+    MarkCompleteModal,
     FullCalendar,
     EventModal
   },
@@ -41,7 +50,11 @@ export default {
         events: '/nova-vendor/nova-calendar-tool/events',
         eventContent: function(arg) {
           let divEl = document.createElement('div')
-          divEl.innerHTML  = arg.event.title.replace(/"/g,"");
+          divEl.innerHTML  = arg.event.extendedProps.eventContent;
+          const editEl = document.getElementById('editEvent' + arg.event.id);
+          editEl.addEventListener('click', () => {
+            this.handleEditEventClick(arg.event);
+          });
           return { domNodes: [ divEl ] };
         },
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -71,7 +84,8 @@ export default {
       doctors: [],
       patients: [],
       liveSessions: [],
-      showModal: false
+      showModal: false,
+      showConfirmationDialog: false
     }
   },
   methods: {
@@ -80,10 +94,14 @@ export default {
       this.currentDate = date;
     },
     handleEventClick(event) {
+      this.showConfirmationDialog = true;
+      this.currentEvent = event;
+    },
+    handleEditEventClick(event) {
       this.showModal = true;
       this.currentEvent = event;
-      if (event && event.event.extendedProps.patient_id !== null) {
-        this.getPatientSessions(event.event.extendedProps.patient_id);
+      if (event && event.extendedProps.patient_id !== null) {
+        this.getPatientSessions(event.extendedProps.patient_id);
       }
     },
     closeModal() {
