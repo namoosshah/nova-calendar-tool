@@ -39,7 +39,7 @@ export default {
       calendarOptions: {
         events: '/nova-vendor/nova-calendar-tool/events',
         eventRender: function (event, element) {
-          element.find('span.fc-title').html(element.find('span.fc-title').text());
+          element.find('div.fc-event-title').html(element.find('div.fc-event-title').text());
         },
         plugins: [dayGridPlugin, interactionPlugin],
         headerToolbar: {
@@ -54,7 +54,6 @@ export default {
         resizable: false,
         nextDayThreshold: '00:00:00',
         fixedWeekCount: false,
-        showNonCurrentDates: false,
         displayEventTime: false,
         locale: Nova.config.fullcalendar_locale || 'en',
         dateClick: this.handleDateClick,
