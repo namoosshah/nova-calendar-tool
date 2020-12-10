@@ -16,12 +16,13 @@
           @close="closeModal"
           @confirm="saveEvent"
           @delete="deleteEvent"
+          @markCompleted="markCompleted"
           @getPatientSessions="getPatientSessions"
       />
     </transition>
     <transition name="fade">
       <MarkCompleteModal
-          v-if="showModal"
+          v-if="showConfirmationDialog"
           :currentEvent="currentEvent"
           @refreshEvents="refreshEvents"
           @close="closeModal"></MarkCompleteModal>
@@ -95,6 +96,10 @@ export default {
       if (event && event.event.extendedProps.patient_id !== null) {
         this.getPatientSessions(event.event.extendedProps.patient_id);
       }
+    },
+    markCompleted() {
+      this.showModal = false;
+      this.showConfirmationDialog = true;
     },
     closeModal() {
       this.showModal = false;

@@ -9,7 +9,13 @@
       <slot :uppercaseMode="uppercaseMode" :mode="mode">
         <div class="p-8">
           <heading v-if="!currentEvent" :level="2" class="mb-6">{{ __('Create Event') }}</heading>
-          <heading v-if="currentEvent" :level="2" class="mb-6">{{ __('Edit Event') }}</heading>
+          <heading v-if="currentEvent" :level="2" class="mb-6">
+            <div class="flex justify-between">
+              <div>{{ __('Edit Event') }}</div>
+              <button class="btn btn-default btn-primary ml-3" type="button"
+                @click="markCompleted()">Mark Completed</button>
+            </div>
+          </heading>
           <div class="border-b border-40 pb-4">
             <label for="title" class="mb-2 text-80 leading-tight">Title:</label>
             <input v-model="title" name="title" class="w-full form-control form-input form-input-bordered"/>
@@ -95,6 +101,9 @@ export default {
     },
     getPatientSessions() {
       this.$emit('getPatientSessions', this.patient_id);
+    },
+    markCompleted() {
+      this.$emit('markCompleted');
     },
     handleClose() {
       this.$emit('close');
