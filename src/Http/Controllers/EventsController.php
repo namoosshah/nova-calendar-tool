@@ -28,9 +28,7 @@ class EventsController
                     'live_session_id' => $event->live_session_id,
                     'completed_at' => $event->completed_at
                 ],
-                'eventBackgroundColor' => $event->completed_at ? '#D1FAE5' : '#FFFBEB',
-                'eventBorderColor' => $event->completed_at ? '#10B981' : '#F59E0B',
-                'eventTextColor' => $event->completed_at ? '#10B981' : '#F59E0B',
+                'color' => $event->completed_at ? '#34D399' : '#FCD34D'
             ];
         }
         $formattedEvents = collect($formattedEvents)->toJson();
